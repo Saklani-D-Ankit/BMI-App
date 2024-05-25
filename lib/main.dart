@@ -6,17 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fst_mobile_app/BMI_Calculator/Result.dart';
 import 'package:fst_mobile_app/BMI_Calculator/provider/CalculatorAgeProvider.dart';
-import 'package:fst_mobile_app/ControllerPages/controller/controller.dart';
-import 'package:fst_mobile_app/quizApp/quizHome.dart';
-import 'package:fst_mobile_app/quizApp/timer.dart';
 import 'package:provider/provider.dart';
 import 'BMI_Calculator/Calculator.dart';
 import 'BMI_Calculator/provider/CalculatorGenProvider.dart';
-import 'ControllerPages/pages/homePage.dart';
-import 'ControllerPages/pages/splash.dart';
-import 'temp/demo.dart';
 
 void main() {
+  // for Horizontal and Vertical app opneing
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setPreferredOrientations(
   //     [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
@@ -44,11 +39,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         // home: const MyHomePage(),
-        // home: const SplashScreen(),
-        // home: const QuizHomePage(),
-        // home: const TimerPage(),
         home: const BMICalculatorPage(),
-        // home: const EventPage(),
         // home: const ResultPage(),
       ),
     );
