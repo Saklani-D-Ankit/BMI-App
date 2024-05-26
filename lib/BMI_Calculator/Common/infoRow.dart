@@ -2,13 +2,18 @@
 
 import 'package:flutter/material.dart';
 
-Row InfoRow(String text1, String text2) {
+late int start;
+late int end;
+late double infoStart;
+late double widths;
+
+Row InfoRow(String text1, String text2, double infoStart, double widths) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     // crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      const SizedBox(
-        width: 50,
+      SizedBox(
+        width: infoStart,
       ),
       Expanded(
         child: Text(
@@ -18,6 +23,9 @@ Row InfoRow(String text1, String text2) {
             fontSize: 14,
           ),
         ),
+      ),
+      SizedBox(
+        width: widths, // Replace 'widths' with a valid constant value
       ),
       Expanded(
         child: Text(
@@ -32,12 +40,13 @@ Row InfoRow(String text1, String text2) {
   );
 }
 
-SizedBox Dividers(Size size) {
+SizedBox Dividers(Size size, double start, double end) {
   return SizedBox(
     width: size.width / 1.19,
-    child: const Divider(
+    child: Divider(
       height: 10,
-      endIndent: 137,
+      indent: start,
+      endIndent: end,
     ),
   );
 }

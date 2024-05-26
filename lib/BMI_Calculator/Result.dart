@@ -13,10 +13,34 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
+  bool isDesktop(BuildContext context) =>
+      MediaQuery.of(context).size.width > 800;
+  bool isTabVertical(BuildContext context) =>
+      MediaQuery.of(context).size.width >= 800.0;
+  bool isTabHorizontal(BuildContext context) =>
+      MediaQuery.of(context).size.width >= 1280.0;
+  bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width < 392.727;
+  late double start;
+  late double end;
+  late double infoStart;
+  late double widths;
+
   var BMI_Value = 'normal';
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    if (isTabHorizontal(context)) {
+      start = 0;
+      end = 176;
+      infoStart = 90;
+      widths = 290;
+    } else if (isTabVertical(context)) {
+      start = 20;
+      end = 55;
+      infoStart = 70;
+      widths = 150;
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black.withAlpha(241),
@@ -74,7 +98,7 @@ class _ResultPageState extends State<ResultPage> {
                   ),
                   SizedBox(
                     // Changed from TextAlignVertical(y: 10)
-                    width: 120,
+                    width: 100,
                     height: 40,
                     child: Center(
                       child: HeadingText(
@@ -89,15 +113,16 @@ class _ResultPageState extends State<ResultPage> {
               const SizedBox(
                 height: 30,
               ),
-              InfoRow('Healthy BMI Range:', '18.5 kg/m2 - 25 kg/m2'),
-              Dividers(size),
-              InfoRow(
-                  'Healthy Weight for the Height:', '59.9 kg/m2 - 81 kg/m2'),
-              Dividers(size),
-              InfoRow('BMI Prime:', '0.8'),
-              Dividers(size),
-              InfoRow('Ponderal Index:', '11.1 kg/m2'),
-              Dividers(size),
+              InfoRow('Healthy BMI Range:', '18.5 kg/m2 - 25 kg/m2', infoStart,
+                  widths),
+              Dividers(size, start, end),
+              InfoRow('Healthy Weight for the Height:', '59.9 kg/m2 - 81 kg/m2',
+                  infoStart, widths),
+              Dividers(size, start, end),
+              InfoRow('BMI Prime:', '0.8', infoStart, widths),
+              Dividers(size, start, end),
+              InfoRow('Ponderal Index:', '11.1 kg/m2', infoStart, widths),
+              Dividers(size, start, end),
               const SizedBox(
                 height: 30,
               ),
