@@ -11,7 +11,7 @@ import 'BMI_Calculator/Calculator.dart';
 import 'BMI_Calculator/provider/CalculatorGenProvider.dart';
 
 void main() {
-  // for Horizontal and Vertical app opneing
+  // for Horizontal and Vertical app opening
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setPreferredOrientations(
   //     [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         // home: const MyHomePage(),
-        home: const BMICalculatorPage(),
-        // home: const ResultPage(),
+        // home: const BMICalculatorPage(),
+        home: const ResultPage(),
       ),
     );
   }

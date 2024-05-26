@@ -12,16 +12,30 @@ class AgeBox extends StatefulWidget {
 }
 
 class _AgeBoxState extends State<AgeBox> {
+  bool isDesktop(BuildContext context) =>
+      MediaQuery.of(context).size.width > 800;
+  bool isTab(BuildContext context) =>
+      MediaQuery.of(context).size.width > 392.727;
+  bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width < 392.727;
+
   @override
   Widget build(BuildContext context) {
     final ageProvider =
         Provider.of<CalculatorAgeProvider>(context, listen: false);
     var size = MediaQuery.of(context).size;
+    double mHeight;
+    if (isMobile(context)) {
+      mHeight = size.height / 1.5;
+    } else {
+      mHeight = 300;
+    }
     return Container(
       alignment: Alignment.center,
       width: size.width / 3,
       // height: size.height / 1.5,
-      height: 300,
+      height: mHeight,
+
       decoration: BoxDecoration(
         color: Colors.grey[800],
         borderRadius: const BorderRadius.all(Radius.circular(35)),

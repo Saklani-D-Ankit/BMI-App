@@ -23,9 +23,14 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
   ];
   @override
   Widget build(BuildContext context) {
+    bool isDesktop(BuildContext context) =>
+        MediaQuery.of(context).size.width > 800;
+    bool isTab(BuildContext context) =>
+        MediaQuery.of(context).size.width > 392.727;
+    bool isMobile(BuildContext context) =>
+        MediaQuery.of(context).size.width < 392.727;
     var size = MediaQuery.of(context).size;
-    print("pad width is : ${size.width}");
-    print("pad Height is : ${size.height}");
+    
 
     // // for Tab Screen
     // // {
@@ -48,7 +53,7 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
     // // I/flutter (19152): pad width is : 803.6363636363636
     // // I/flutter (19152): pad Height is : 392.72727272727275
     // // }
- 
+
     return Scaffold(
       body: Container(
         height: double.infinity,
