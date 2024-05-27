@@ -27,7 +27,8 @@ Widget HeadingText({
   Color? color,
   double? fontSize,
 }) {
-  return SizedBox(
+  return Container(
+    alignment: Alignment.center,
     height: 48,
     width: double.infinity,
     child: Text(

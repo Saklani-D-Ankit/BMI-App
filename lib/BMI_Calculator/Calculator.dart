@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fst_mobile_app/BMI_Calculator/Common/ageBox.dart';
 import 'package:fst_mobile_app/BMI_Calculator/Common/subText.dart';
 import 'package:fst_mobile_app/BMI_Calculator/Result.dart';
@@ -23,14 +22,14 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    bool isDesktop(BuildContext context) =>
-        MediaQuery.of(context).size.width > 800;
-    bool isTab(BuildContext context) =>
-        MediaQuery.of(context).size.width > 392.727;
-    bool isMobile(BuildContext context) =>
-        MediaQuery.of(context).size.width < 392.727;
+    // bool isDesktop(BuildContext context) =>
+    //     MediaQuery.of(context).size.width > 800;
+    // bool isTab(BuildContext context) =>
+    //     MediaQuery.of(context).size.width > 392.727;
+    // bool isMobile(BuildContext context) =>
+    //     MediaQuery.of(context).size.width < 392.727;
+
     var size = MediaQuery.of(context).size;
-    
 
     // // for Tab Screen
     // // {
@@ -79,13 +78,13 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                   const SizedBox(
                     height: 25,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       container_widget(
                         text: 'Gender',
                       ),
-                      const AgeBox(),
+                      AgeBox(),
                     ],
                   ),
                   const SizedBox(

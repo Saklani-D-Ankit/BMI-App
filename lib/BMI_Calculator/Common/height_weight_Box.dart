@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/CalculatorHWProvider.dart';
 
 // Changed from StatelessWidget to StatefulWidget to manage state
 class HeightWeightBox extends StatefulWidget {
@@ -23,7 +26,8 @@ class HeightWeightBox extends StatefulWidget {
 }
 
 class _HeightWeightBoxState extends State<HeightWeightBox> {
-  int selectedValue = 1; // Added to hold the selected value
+  // Added to hold the selected value
+  late int? bodyHeightWeight = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -92,43 +96,50 @@ class _HeightWeightBoxState extends State<HeightWeightBox> {
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey,
               ),
-              child: ListWheelScrollView(
-                diameterRatio: 2.0,
-                itemExtent: 50,
-                // controller: ScrollController(),
-                physics: const FixedExtentScrollPhysics(),
-                useMagnifier: true,
-                magnification: 1.5,
-                onSelectedItemChanged: (value) {
-                  setState(() {
-                    selectedValue =
-                        value + 1; // Update selected value and call setState
-                  });
+              child: Consumer<CalculatorHWProvider>(
+                builder: (context, provider, child) {
+                  return ListWheelScrollView(
+                    diameterRatio: 2.0,
+                    itemExtent: 50,
+                    // controller: ScrollController(),
+                    physics: const FixedExtentScrollPhysics(),
+                    useMagnifier: true,
+                    magnification: 1.5,
+                    onSelectedItemChanged: (value) {
+                      // print(widget.text);
+                      if (widget.text == 'Height') {
+                        provider.updateHeight(value + 1);
+                      } else if (widget.text == 'Weight') {
+                        provider.updateWeight(value + 1);
+                      }
+                    },
+                    children: List.generate(
+                      200,
+                      (index) {
+                        return Container(
+                          width: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: widget.text == 'Height'
+                                ? Text(
+                                    '${index + 1} cm',
+                                    style: const TextStyle(fontSize: 17),
+                                  )
+                                : Text(
+                                    '${index + 1} kg',
+                                    style: const TextStyle(fontSize: 17),
+                                  ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
                 },
-                children: List.generate(
-                  200,
-                  (index) {
-                    return Container(
-                      width: 90,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: widget.text == 'Height'
-                            ? Text(
-                                '${index + 1} cm',
-                                style: const TextStyle(fontSize: 17),
-                              )
-                            : Text(
-                                '${index + 1} kg',
-                                style: const TextStyle(fontSize: 17),
-                              ),
-                      ),
-                    );
-                  },
-                ),
               ),
             ),
+
             Container(
               height: 50,
               width: 150,
@@ -137,26 +148,48 @@ class _HeightWeightBoxState extends State<HeightWeightBox> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Center(
-                child: RichText(
-                  text: TextSpan(
-                    text: '$selectedValue',
-                    style: const TextStyle(
-                      color: Color.fromARGB(204, 239, 83, 80),
-                      fontSize: 31,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: ' ${widget.mag1}',
+                child: Consumer<CalculatorHWProvider>(
+                  builder: (context, provider, child) {
+                    if (widget.text == 'Height') {
+                      bodyHeightWeight = provider.height;
+                    } else {
+                      bodyHeightWeight = provider.weight;
+                    }
+                    return RichText(
+                      text: TextSpan(
+                        text: '$bodyHeightWeight',
                         style: const TextStyle(
-                          color: Color.fromARGB(197, 184, 98, 98),
+                          color: Color.fromARGB(204, 239, 83, 80),
+                          fontSize: 31,
+                          fontWeight: FontWeight.w400,
                         ),
+                        children: [
+                          TextSpan(
+                            text: ' ${widget.mag1}',
+                            style: const TextStyle(
+                              color: Color.fromARGB(197, 184, 98, 98),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
-            ),
+            )
+
+            // Consumer<CalculatorHWProvider>(
+            //   builder: (context, value, child) {
+            //     // print(widget.text);
+            //     if (widget.text == 'Height') {
+            //       bodyHeightWeight = value.height;
+            //       // print(widget.text);
+            //     } else if (widget.text == "Weight") {
+            //       bodyHeightWeight = value.weight;
+            //       // print(widget.text);
+            //     }
+            //     return },
+            // ),
           ],
         ),
       ),

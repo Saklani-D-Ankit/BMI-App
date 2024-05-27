@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fst_mobile_app/BMI_Calculator/Result.dart';
 import 'package:fst_mobile_app/BMI_Calculator/provider/CalculatorAgeProvider.dart';
+import 'package:fst_mobile_app/BMI_Calculator/provider/CalculatorHWProvider.dart';
 import 'package:provider/provider.dart';
 import 'BMI_Calculator/Calculator.dart';
 import 'BMI_Calculator/provider/CalculatorGenProvider.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         // Provider<CalculatorAgeProvider>(create: (_) => CalculatorAgeProvider()),
         ChangeNotifierProvider(create: (context) => CalculatorProvider()),
         ChangeNotifierProvider(create: (context) => CalculatorAgeProvider()),
+        ChangeNotifierProvider(create: (context) => CalculatorHWProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -39,8 +41,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         // home: const MyHomePage(),
-        // home: const BMICalculatorPage(),
-        home: const ResultPage(),
+        home: const BMICalculatorPage(),
+        // home: const ResultPage(),
       ),
     );
   }

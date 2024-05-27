@@ -31,9 +31,7 @@ Row InfoRow(String text1, String text2, double infoStart, double widths) {
         child: Text(
           text2,
           style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 14,
-          ),
+              color: Colors.white70, fontSize: 14, fontWeight: FontWeight.bold),
         ),
       ),
     ],

@@ -8,7 +8,7 @@ import '../provider/CalculatorGenProvider.dart';
 
 class container_widget extends StatefulWidget {
 
-  container_widget({
+  const container_widget({
     super.key,
     required this.text,
     // required this.size,
