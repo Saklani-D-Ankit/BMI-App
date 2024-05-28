@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fst_mobile_app/BMI_Calculator/Common/subText.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
+// import 'package:share_plus/share_plus.dart';
 
 import 'Common/infoRow.dart';
 import 'provider/CalculatorAgeProvider.dart';
@@ -18,14 +18,25 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-  bool isDesktop(BuildContext context) =>
-      MediaQuery.of(context).size.width > 800;
-  bool isTabVertical(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 800.0;
-  bool isTabHorizontal(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 1280.0;
-  bool isMobile(BuildContext context) =>
-      MediaQuery.of(context).size.width < 392.727;
+  bool isTabWidthVertical(BuildContext context) =>
+      MediaQuery.of(context).size.width <= 800.0;
+  bool isTabHeightVertical(BuildContext context) =>
+      MediaQuery.of(context).size.height <= 1281.0;
+
+  bool isTabWidthHorizontal(BuildContext context) =>
+      MediaQuery.of(context).size.width <= 1283.0;
+  bool isTabHeightHorizontal(BuildContext context) =>
+      MediaQuery.of(context).size.height <= 800.0;
+
+  bool isMobileHorizontalWidth(BuildContext context) =>
+      MediaQuery.of(context).size.width <= 804;
+  bool isMobileHorizontalHeight(BuildContext context) =>
+      MediaQuery.of(context).size.height <= 393;
+ 
+  bool isMobileVerticalWidth(BuildContext context) =>
+      MediaQuery.of(context).size.width <= 393;
+  bool isMobileVerticalHeight(BuildContext context) =>
+      MediaQuery.of(context).size.height <= 804;
   late double start;
   late double end;
   late double infoStart;
@@ -62,26 +73,55 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    if (isTabHorizontal(context)) {
+    // print(isMobileHorizontalWidth(context));
+    // print(isMobileHorizontalWidth(context));
+
+    print(isTabHeightVertical(context));
+    print(isTabWidthVertical(context));
+
+    print("width ${size.width}");
+    print("height ${size.height}");
+
+    // print(isTabHeightHorizontal(context));
+    // print(isTabWidthHorizontal(context));
+
+    print(isMobileVerticalWidth(context));
+    print(isMobileVerticalHeight(context));
+    double? headText;
+    if (isTabHeightHorizontal(context) && isTabWidthHorizontal(context)) {
       start = 0;
       end = 5;
       infoStart = 104;
       widths = 620;
       widgets = const SingleChildScrollView();
-    } else if (isTabVertical(context)) {
+      print("This Tab 1");
+    } else if (isTabHeightVertical(context) && isTabWidthVertical(context)) {
       start = 20;
       end = 22;
       infoStart = 86;
       widths = 200;
+      headText = 30;
       widgets = const Column();
+      print("This Tab 2");
+    } else if (isMobileVerticalHeight(context) &&
+        isMobileVerticalWidth(context)) {
+      print("This Tab 3");
+      headText = 22;
+    } else if (isMobileHorizontalHeight(context) &&
+        isMobileHorizontalWidth(context)) {
+      print("This Tab 4");
     }
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black.withAlpha(241),
-        title: const Text(
+        centerTitle: true,
+        title: Text(
           'BMI Calculator',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: headText,
+          ),
         ),
         iconTheme: const IconThemeData(
           color: Colors.white,
@@ -254,7 +294,7 @@ class _ResultPageState extends State<ResultPage> {
               elevation: 20,
             ),
             onPressed: () {
-              Share.share("Your BMI is $BMI_Value at age $yourAge ");
+              // Share.share("Your BMI is $BMI_Value at age $yourAge ");
             },
             child: const Text('Share'),
           ),

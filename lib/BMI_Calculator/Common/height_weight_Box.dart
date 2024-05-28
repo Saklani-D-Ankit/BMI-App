@@ -28,20 +28,75 @@ class HeightWeightBox extends StatefulWidget {
 class _HeightWeightBoxState extends State<HeightWeightBox> {
   // Added to hold the selected value
   late int? bodyHeightWeight = 1;
+  bool isMobileHorizontal(BuildContext context) =>
+      MediaQuery.of(context).size.width <= 393;
+  bool isMobileVertical(BuildContext context) =>
+      MediaQuery.of(context).size.width <= 804;
+  bool isMobilehHorizontal(BuildContext context) =>
+      MediaQuery.of(context).size.height <= 393;
+  bool isTabWVertical(BuildContext context) =>
+      MediaQuery.of(context).size.width <= 804;
+  bool isTabHVertical(BuildContext context) =>
+      MediaQuery.of(context).size.height <= 1281;
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    double? mHeight;
+    double? mWeight;
+    double? fontSize;
+    double? iconSize;
+    double? padding;
+    double? subContainHeight;
+    double? subContainWidth;
+    double? scrollContainHeight;
+    double? scrollContainWidth;
+    double? magnification;
+    if (isMobileHorizontal(context)) {
+      mHeight = widget.size.height / 2.55;
+      mWeight = size.width / 1.05;
+      fontSize = 22;
+      iconSize = 25;
+      padding = 0.0;
+      subContainHeight = 50;
+      subContainWidth = 100;
+      scrollContainHeight = 250;
+      scrollContainWidth = 120;
+      magnification = 1.3;
+    } else if (isMobileVertical(context) && isMobilehHorizontal(context)) {
+      mHeight = size.height / 1.55;
+      mWeight = size.width / 1.55;
+      fontSize = 22;
+      iconSize = 25;
+      padding = 0.0;
+      subContainHeight = 50;
+      subContainWidth = 150;
+      scrollContainHeight = 190;
+      scrollContainWidth = 120;
+      magnification = 1.3;
+    } else {
+      fontSize = 35;
+      iconSize = 50;
+      padding = 10.0;
+      mWeight = widget.size.width / 1.32;
+      mHeight = 300;
+      subContainHeight = 50;
+      subContainWidth = 150;
+      scrollContainHeight = 250;
+      scrollContainWidth = 120;
+      magnification = 1.5;
+    }
     return Container(
       alignment: Alignment.center,
-      width: widget.size.width / 1.32,
+      width: mWeight,
       // height: widget.size.height / 1.32,
-      height: 300,
+      height: mHeight,
       decoration: BoxDecoration(
         color: Colors.grey[800],
         borderRadius: const BorderRadius.all(Radius.circular(35)),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(padding),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -49,15 +104,15 @@ class _HeightWeightBoxState extends State<HeightWeightBox> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (widget.text == 'Height')
-                  const Icon(
+                  Icon(
                     Icons.height_rounded,
-                    size: 50,
+                    size: iconSize + 10,
                     color: Colors.white,
                   )
                 else
-                  const Icon(
+                  Icon(
                     Icons.monitor_weight_rounded,
-                    size: 50,
+                    size: iconSize + 10,
                     color: Colors.white,
                   ),
                 const SizedBox(
@@ -65,10 +120,10 @@ class _HeightWeightBoxState extends State<HeightWeightBox> {
                 ),
                 Text(
                   widget.text!,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 35,
-                    fontWeight: FontWeight.w300,
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(
@@ -90,8 +145,8 @@ class _HeightWeightBoxState extends State<HeightWeightBox> {
               ],
             ),
             Container(
-              height: 250,
-              width: 120,
+              height: scrollContainHeight,
+              width: scrollContainWidth,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey,
@@ -104,7 +159,7 @@ class _HeightWeightBoxState extends State<HeightWeightBox> {
                     // controller: ScrollController(),
                     physics: const FixedExtentScrollPhysics(),
                     useMagnifier: true,
-                    magnification: 1.5,
+                    magnification: magnification!,
                     onSelectedItemChanged: (value) {
                       // print(widget.text);
                       if (widget.text == 'Height') {
@@ -141,8 +196,8 @@ class _HeightWeightBoxState extends State<HeightWeightBox> {
             ),
 
             Container(
-              height: 50,
-              width: 150,
+              height: subContainHeight,
+              width: subContainWidth,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(29, 199, 217, 255),
                 borderRadius: BorderRadius.circular(15),
@@ -158,9 +213,9 @@ class _HeightWeightBoxState extends State<HeightWeightBox> {
                     return RichText(
                       text: TextSpan(
                         text: '$bodyHeightWeight',
-                        style: const TextStyle(
-                          color: Color.fromARGB(204, 239, 83, 80),
-                          fontSize: 31,
+                        style: TextStyle(
+                          color: const Color.fromARGB(204, 239, 83, 80),
+                          fontSize: fontSize,
                           fontWeight: FontWeight.w400,
                         ),
                         children: [

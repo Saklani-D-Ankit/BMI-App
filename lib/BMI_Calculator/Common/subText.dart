@@ -9,7 +9,7 @@ Widget SubText({
   double? fontSize,
 }) {
   return SizedBox(
-    height: 20,
+    height: 25,
     width: double.infinity,
     child: Text(
       text!,

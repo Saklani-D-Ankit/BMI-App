@@ -22,36 +22,37 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    // bool isDesktop(BuildContext context) =>
-    //     MediaQuery.of(context).size.width > 800;
-    // bool isTab(BuildContext context) =>
-    //     MediaQuery.of(context).size.width > 392.727;
-    // bool isMobile(BuildContext context) =>
-    //     MediaQuery.of(context).size.width < 392.727;
-
+    bool isMobileHorizontal(BuildContext context) =>
+        MediaQuery.of(context).size.width <= 393;
+    bool isMobileVertical(BuildContext context) =>
+        MediaQuery.of(context).size.width <= 804;
+    // print(isMobileHorizontal(context));
     var size = MediaQuery.of(context).size;
+    // print("width ${size.width}");
+    late double? textfont;
+    late double? subTextFont;
+    late double? btnsubTextFont;
+    // print("width ${size.width}");
+    // print("height ${size.height}");
 
-    // // for Tab Screen
-    // // {
-    // Vertical
-    // // I/flutter (21825): pad width is : 800.0
-    // // I/flutter (21825): pad Height is : 1232.0
-
-    // // Horizontal
-    // // I/flutter (21825): pad width is : 1280.0
-    // // I/flutter (21825): pad Height is : 752.0
-    // // }
-
-    // // for Mobile Screen
-    // // {
-    // Vertical
-    // // I/flutter (19152): pad width is : 392.72727272727275
-    // // I/flutter (19152): pad Height is : 803.6363636363636
-
-    // // Horizontal
-    // // I/flutter (19152): pad width is : 803.6363636363636
-    // // I/flutter (19152): pad Height is : 392.72727272727275
-    // // }
+    if (isMobileHorizontal(context)) {
+      // print(size.width);
+      textfont = 22;
+      subTextFont = 11.5;
+      btnsubTextFont = 22;
+    } else if (isMobileVertical(context) && size.height > 393) {
+      textfont = 22;
+      subTextFont = 11.5;
+      btnsubTextFont = 22;
+    } else if (size.height < 1240 && size.width < 800.5) {
+      textfont = 30;
+      subTextFont = 17;
+      btnsubTextFont = 26;
+    } else {
+      textfont = 30;
+      subTextFont = 17;
+      btnsubTextFont = 26;
+    }
 
     return Scaffold(
       body: Container(
@@ -68,12 +69,12 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                   HeadingText(
                     text: 'BMI Calculator',
                     color: Colors.white,
-                    fontSize: 27,
+                    fontSize: textfont,
                   ),
                   SubText(
                     text: 'Body Mass Index',
                     color: Colors.grey[500],
-                    fontSize: 11.5,
+                    fontSize: subTextFont,
                   ),
                   const SizedBox(
                     height: 25,
@@ -105,7 +106,6 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                     mag1: 'kg',
                     mag2: 'lb',
                   ),
-                  // Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: SizedBox(
@@ -117,11 +117,6 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                             backgroundColor: Colors.deepPurpleAccent,
                             shadowColor: Colors.deepPurple[300],
                             elevation: 10,
-                            // shape: const RoundedRectangleBorder(
-                            //   borderRadius: BorderRadius.all(
-                            //     Radius.circular(20),
-                            //   ),
-                            // ),
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -131,10 +126,10 @@ class _BMICalculatorPageState extends State<BMICalculatorPage> {
                               ),
                             );
                           },
-                          child: const Text(
+                          child: Text(
                             'Calculate',
                             style: TextStyle(
-                              fontSize: 26,
+                              fontSize: btnsubTextFont,
                             ),
                           )),
                     ),
